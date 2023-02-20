@@ -1,0 +1,320 @@
+
+mysql> USE whatabook;
+Database changed
+mysql> UPDATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsGreat!';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsG' at line 1
+mysql> UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE user = 'root';
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    -> \c;
+ERROR:
+No query specified
+
+mysql> 'user_id INT     NOT NULL        AUTO_INCREMENT,'/c;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''user_id     INT     NOT NULL        AUTO_INCREMENT,'/c' at line 1
+mysql> DELETE TABLE user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE user' at line 1
+mysql>
+mysql> USE whatabook;
+Database changed
+mysql>
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT  PRIMARY KEY,
+    ->  first_name      VARCHAR 75      NOT NULL,
+    ->  last_name       VARCHAR 75      NOT NULL,
+    -> PRIMARY KEY(user_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75   NOT NULL,
+        last_name       VARCHAR 75      NOT NULL,
+PRIMARY KEY(user_id)' at line 3
+mysql>
+mysql>
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  first_name      VARCHAR 75      NOT NULL,
+    ->  last_name       VARCHAR 75      NOT NULL,
+    ->
+    ->  PRIMARY KEY(user_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75   NOT NULL,
+        last_name       VARCHAR 75      NOT NULL,
+
+        PRIMARY KEY(user_id)' at line 3
+mysql>
+mysql> DROP TABLE IF EXISTS user;
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> SHOW WARNINGS;
++-------+------+--------------------------------+
+| Level | Code | Message                        |
++-------+------+--------------------------------+
+| Note  | 1051 | Unknown table 'whatabook.user' |
++-------+------+--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  first_name
+    ->  ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  first_name      VARCHAR 75      NOT NULL,
+    ->  last_name       VARCHAR 75      NOT NULL,
+    ->  PRIMARY KEY(user_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '75   NOT NULL,
+        last_name       VARCHAR 75      NOT NULL,
+        PRIMARY KEY(user_id)' at line 3
+mysql>
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  first_name      VARCHAR(75)     NOT NULL,
+    ->  last_name       VARCHAR(75)     NOT NULL,
+    ->  PRIMARY KEY(user_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+mysql>
+mysql>
+mysql> CREATE TABLE user (
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  first_name      VARCHAR(75)     NOT NULL,
+    ->  last_name       VARCHAR(75)     NOT NULL,
+    ->  PRIMARY KEY(user_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE wishlist (
+    ->  wishlist_id     INT     NOT NULL        AUTO_INCREMENT,
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->
+    ->  book_id INT     NOT NULL        AUO_INCREMENT,
+    ->  PRIMARY KEY(wishlist_id)
+    ->  FOREIGN KEY(user_id)
+    ->  FOREIGN KEY(book_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUO_INCREMENT,
+        PRIMARY KEY(wishlist_id)
+        FOREIGN KEY(user_id)
+        FOREIGN KEY(book' at line 5
+mysql> CREATE TABLE wishlist (
+    ->  wishlist_id     INT     NOT NULL        AUTO_INCREMENT,
+    ->  user_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  book_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  PRIMARY KEY(wishlist_id),
+    ->  FOREIGN KEY(user_id),
+    ->  FOREIGN KEY(book_id),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+        FOREIGN KEY(book_id),
+)' at line 6
+mysql> help;
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+notee     (\t) Don't write into outfile.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+ssl_session_data_print Serializes the current SSL session data to stdout or file
+
+For server side help, type 'help contents'
+
+mysql> \h;
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+notee     (\t) Don't write into outfile.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+ssl_session_data_print Serializes the current SSL session data to stdout or file
+
+For server side help, type 'help contents'
+
+mysql> GRANT ALL PRIVILEGES ON whatabook.* TO'whatabook_user'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE wishlist DROP FOREIGN KEY fk_book;
+ERROR 1146 (42S02): Table 'whatabook.wishlist' doesn't exist
+mysql>
+mysql> CREATE TABLE wishlist (
+    ->  wishlist_id     INT     NOT NULL        AUTO_INCREMENT,
+    ->  user_id INT     NOT NULL,
+    ->  book_id INT     NOT NULL,
+    ->
+    ->  PRIMARY KEY (wishlist_id),
+    ->  CONSTRAINT fk_book
+    ->
+    ->  FOREIGN KEY (book_id)
+    ->          REFERENCES book(book_id),
+    ->  CONSTRAINT fk_user
+    ->  FOREIGN KEY (user_id)
+    ->          REFERENCES user(user_id)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'book'
+mysql>
+mysql> CREATE TABLE store (
+    ->  store_id        INT     NOT NULL        AUTO_INCREMENT,
+    ->  locale  VARCHAR(500)    NOT NULL,
+    ->  PRIMARY KEY(store_id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CRETE TABLE book (
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETE TABLE book (' at line 1
+mysql>
+mysql> CREATE TABLE book (
+    ->  book_id INT     NOT NULL        AUTO_INCREMENT,
+    ->  book_name       VARCHAR(200)    NOT NULL,
+    ->  author  VARCHAR(200)    NOT NULL,
+    ->  details VARCHAR(500),
+    ->  PRIMARY KEY(book_id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE wishlist (
+    ->  wishlist_id     INT     NOT NULL        AUTO_INCREMENT,
+    ->  user_id INT     NOT NULL,
+    ->  book_id INT     NOT NULL,
+    ->  PRIMARY KEY (wishlist_id),
+    ->  CONSTRAINT fk_book
+    ->  FOREIGN KEY (book_id)
+    ->          REFERENCES book(book_id),
+    ->  CONSTRAINT fk_user
+    ->  FOREIGN KEY (user_id)
+    ->          REFERENCES user(user_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO store(locale)
+    ->  VALUES('616 Ruger Rd, Chicago, IL 60602');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author, details)
+    ->  VALUES('Information Technology for Counterterrorism', 'National Research Council', 'Immediate actions and future possibilities');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->  VALUES('The Martian', 'Andy Weir');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->  VALUES('Edgar Allen Poe Classic Stories', 'Edgar Allen Poe');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->  VALUES('Learn Latin', 'Peter Jones');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->
+    ->  VALUES('Emotional Intelligence', 'Dr. David Walton');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->  VALUES('Ancient Egypt', 'David P. Silverman');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO book(book_name, author, details)
+    ->  VALUES('A Dictionary of Angels', 'Gustav Davidson', 'Including the fallen angels');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author)
+    ->  VALUES('The Killer Book of Serial Killers', 'Tom Philbin and Michael Philbin');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO book(book_name, author, details)
+    ->  VALUES('The Pacific, Volume One, Pearl Harbor to Guadalcanal', 'Jay Wertz', 'War stories');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO user(first_name, last_name)
+    ->  VALUES('Lindsay', 'Shubin');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO user(first_name, last_name)
+    ->  VALUES('Tony', 'DiNozzo');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO user(first_name, last_name)
+    ->  VALUES('Gaylord', 'Montgomery');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO wishlist(user_id, book_id)
+    ->  VALUES(
+    ->          (SELECT user_id FROM user WHERE first_name = 'Lindsay'),
+    ->          (SELECT user_id FROM book WHERE book_name = 'Information Technology for Counterterrorism')
+    -> );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO wishlist(user_id, book_id)
+    ->  VALUES(
+    ->          (SELECT user_id FROM user WHERE first_name = 'Tony'),
+    ->          (SELECT book_id FROM book WHERE book_name = 'The Killer Book of Serial Killers')
+    -> );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO wishlist(user_id, book_id)
+    ->  VALUES(
+    ->          (SELECT user_id FROM user WHERE first_name = 'Gaylord'),
+    ->          (SELECT book_id FROM book WHERE book_name = 'The Pacific, Volume One, Pearl Harbor to Guadalcanal')
+    -> );
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
