@@ -1,4 +1,20 @@
+
+    --Title: whatabook.init.sql
+    --Author: Shubin, Lindsay
+    --Date of last update: 04 March 2023
+    --Description: WhatABook database initialization script.
+
+
+--drop potential users under this description
+--create user and assign privileges
+
+DROP USER IF EXISTS 'whatabook_user'@'localhost';
+
 UPDATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Purples$motherfolk!19';
+
+GRANT ALL PRIVILEGES ON whatabook.* TO'whatabook_user'@'localhost';
+
+-- create tables for users and assign parameters
 
 CREATE TABLE user (
      user_id INT     NOT NULL        AUTO_INCREMENT,
@@ -6,12 +22,15 @@ CREATE TABLE user (
      last_name       VARCHAR(75)     NOT NULL,
      PRIMARY KEY(user_id)
     );
-Query OK, 0 rows affected (0.05 sec)
 
-GRANT ALL PRIVILEGES ON whatabook.* TO'whatabook_user'@'localhost';
-Query OK, 0 rows affected (0.01 sec)
+-- creating further tables and assigning criteria to these as well
 
-ALTER TABLE wishlist DROP FOREIGN KEY fk_book;
+CREATE TABLE store (
+    store_id        INT     NOT NULL        AUTO_INCREMENT,
+    locale  VARCHAR(500)    NOT NULL,
+    PRIMARY KEY(store_id)
+   );
+
 
 CREATE TABLE book (
      book_id INT     NOT NULL        AUTO_INCREMENT,
@@ -20,7 +39,8 @@ CREATE TABLE book (
      details VARCHAR(500),
      PRIMARY KEY(book_id)
     );
-Query OK, 0 rows affected (0.01 sec)
+
+-- ensuring that the foreign key exists to relate tables 
 
 CREATE TABLE wishlist (
      wishlist_id     INT     NOT NULL        AUTO_INCREMENT,
@@ -34,78 +54,82 @@ CREATE TABLE wishlist (
      FOREIGN KEY (user_id)
              REFERENCES user(user_id)
     );
-Query OK, 0 rows affected (0.04 sec)
+    
+ALTER TABLE wishlist DROP FOREIGN KEY fk_book;
+
+-- instert data into tables
 
 INSERT INTO store(locale)
      VALUES('616 Ruger Rd, Chicago, IL 60602');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author, details)
      VALUES('Information Technology for Counterterrorism', 'National Research Council', 'Immediate actions and future possibilities');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author)
      VALUES('The Martian', 'Andy Weir');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author)
      VALUES('Edgar Allen Poe Classic Stories', 'Edgar Allen Poe');
-Query OK, 1 row affected (0.00 sec)
+
 
 INSERT INTO book(book_name, author)
      VALUES('Learn Latin', 'Peter Jones');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author)
          VALUES('Emotional Intelligence', 'Dr. David Walton');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author)
      VALUES('Ancient Egypt', 'David P. Silverman');
-Query OK, 1 row affected (0.00 sec)
+
 
 INSERT INTO book(book_name, author, details)
      VALUES('A Dictionary of Angels', 'Gustav Davidson', 'Including the fallen angels');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author)
      VALUES('The Killer Book of Serial Killers', 'Tom Philbin and Michael Philbin');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO book(book_name, author, details)
      VALUES('The Pacific, Volume One, Pearl Harbor to Guadalcanal', 'Jay Wertz', 'War stories');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO user(first_name, last_name)
      VALUES('Lindsay', 'Shubin');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO user(first_name, last_name)
      VALUES('Tony', 'DiNozzo');
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO user(first_name, last_name)
      VALUES('Gaylord', 'Montgomery');
-Query OK, 1 row affected (0.01 sec)
+
+-- assign books to user wishlists
 
 INSERT INTO wishlist(user_id, book_id)
      VALUES(
              (SELECT user_id FROM user WHERE first_name = 'Lindsay'),
              (SELECT user_id FROM book WHERE book_name = 'Information Technology for Counterterrorism')
     );
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO wishlist(user_id, book_id)
      VALUES(
              (SELECT user_id FROM user WHERE first_name = 'Tony'),
              (SELECT book_id FROM book WHERE book_name = 'The Killer Book of Serial Killers')
     );
-Query OK, 1 row affected (0.01 sec)
+
 
 INSERT INTO wishlist(user_id, book_id)
      VALUES(
              (SELECT user_id FROM user WHERE first_name = 'Gaylord'),
              (SELECT book_id FROM book WHERE book_name = 'The Pacific, Volume One, Pearl Harbor to Guadalcanal')
     );
-Query OK, 1 row affected (0.01 sec)
+
 
