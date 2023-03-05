@@ -1,5 +1,3 @@
-USE whatabook;
-
 UPDATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Purples$motherfolk!19';
 
 CREATE TABLE user (
@@ -15,9 +13,6 @@ Query OK, 0 rows affected (0.01 sec)
 
 ALTER TABLE wishlist DROP FOREIGN KEY fk_book;
 
-CRETE TABLE book (
-    ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETE TABLE book (' at line 1
 CREATE TABLE book (
      book_id INT     NOT NULL        AUTO_INCREMENT,
      book_name       VARCHAR(200)    NOT NULL,
